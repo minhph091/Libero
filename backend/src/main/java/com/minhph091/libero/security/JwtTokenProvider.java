@@ -18,7 +18,7 @@ import java.util.Date;
 public class JwtTokenProvider {
     @Value("${jwt.secret}")
     private String jwtSecret;
-    @Value("${jwt.expirationMs")
+    @Value("${jwt.expirationMs}")
     private long jwtExpiration; // Tính trên ms
     private SecretKey key;
 
