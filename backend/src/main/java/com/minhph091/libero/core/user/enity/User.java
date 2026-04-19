@@ -1,4 +1,4 @@
-package com.minhph091.libero.user.enity;
+package com.minhph091.libero.core.user.enity;
 
 import com.minhph091.libero.common.enums.Gender;
 import com.minhph091.libero.common.enums.Role;
@@ -8,7 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -29,12 +31,15 @@ public class User {
     private String phone;
     private String passwordHash;
     @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private Gender gender;
     private LocalDate dateOfBirth;
     private String address;
     @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private Role role;
     @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private UserStatus status;
     @CreationTimestamp
     @Column(updatable = false)

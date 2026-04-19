@@ -1,4 +1,4 @@
-package com.minhph091.libero.catalog.entity;
+package com.minhph091.libero.core.catalog.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

@@ -1,21 +1,20 @@
-package com.minhph091.libero.user.service;
+package com.minhph091.libero.core.user.service;
 
 import com.minhph091.libero.security.CustomUserDetails;
-import com.minhph091.libero.user.enity.User;
-import com.minhph091.libero.user.repository.UserRepository;
+import com.minhph091.libero.core.user.enity.User;
+import com.minhph091.libero.core.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService implements UserDetailsService {
+public class CustomerUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public CustomerUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

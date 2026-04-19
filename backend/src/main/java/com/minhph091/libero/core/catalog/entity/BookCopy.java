@@ -1,4 +1,4 @@
-package com.minhph091.libero.catalog.entity;
+package com.minhph091.libero.core.catalog.entity;
 
 import com.minhph091.libero.common.enums.BookStatus;
 import jakarta.persistence.*;
