@@ -8,6 +8,7 @@ import com.minhph091.libero.core.user.dto.LoginRequest;
 import com.minhph091.libero.core.user.dto.UserDTO;
 import com.minhph091.libero.core.user.enity.User;
 import com.minhph091.libero.core.user.service.UserService;
+import jakarta.validation.Valid;
 import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<@NonNull AuthResponse> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<@NonNull AuthResponse> login(@RequestBody @Valid LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.email(),

@@ -4,8 +4,6 @@ import com.minhph091.libero.common.enums.Gender;
 import com.minhph091.libero.core.user.enity.User;
 import jakarta.validation.constraints.*;
 import lombok.Builder;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDate;
 
