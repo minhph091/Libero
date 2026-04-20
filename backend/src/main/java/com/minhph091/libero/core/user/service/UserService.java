@@ -2,6 +2,7 @@ package com.minhph091.libero.core.user.service;
 
 import com.minhph091.libero.common.enums.Role;
 import com.minhph091.libero.common.enums.UserStatus;
+import com.minhph091.libero.core.user.dto.ChangePasswordRequest;
 import com.minhph091.libero.exception.ApiException;
 import com.minhph091.libero.core.user.dto.RegistrationRequest;
 import com.minhph091.libero.core.user.enity.User;
@@ -41,5 +42,16 @@ public class UserService {
         user.setStatus(UserStatus.ACTIVE);
         userRepository.save(user);
         return user;
+    }
+
+    @Transactional
+    public void changePassword(Integer userId, ChangePasswordRequest request) {
+        User user = userRepository.findById(userId).orElseThrow(()
+                -> new ApiException(HttpStatus.NOT_FOUND, "User not found"));
+        if (!passwordEncoder.matches(request.currentPassword(), user.getPasswordHash())) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "Current password is incorrect", "INVALID_CURRENT_PASSWORD");
+        }
+        user.setPasswordHash(passwordEncoder.encode(request.newPassword()));
+        userRepository.save(user);
     }
 }

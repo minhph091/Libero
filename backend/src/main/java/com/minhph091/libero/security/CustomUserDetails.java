@@ -42,6 +42,10 @@ public class CustomUserDetails implements UserDetails {
         return user.getPasswordHash();
     }
 
+    public Integer getId() {
+        return user.getId();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // Lấy Role

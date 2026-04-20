@@ -38,7 +38,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<@NonNull AuthResponse> login(@RequestBody @Valid LoginRequest loginRequest) {
+    public ResponseEntity<@NonNull AuthResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.email(),
@@ -55,9 +55,10 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<@NonNull UserDTO> register(@RequestBody RegistrationRequest registrationRequest) {
+    public ResponseEntity<@NonNull UserDTO> register(@Valid @RequestBody RegistrationRequest registrationRequest) {
         User user = userService.registerUser(registrationRequest);
         UserDTO response = UserDTO.fromEntity(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
 }
