@@ -1,5 +1,7 @@
 package com.minhph091.libero.core.user.controller;
 
+import com.minhph091.libero.common.enums.Role;
+import com.minhph091.libero.common.enums.UserStatus;
 import com.minhph091.libero.core.user.dto.ChangePasswordRequest;
 import com.minhph091.libero.core.user.dto.UpdateEmailRequest;
 import com.minhph091.libero.core.user.dto.UpdateUserRequest;
@@ -12,11 +14,18 @@ import com.minhph091.libero.security.CustomUserDetails;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/users")
@@ -53,6 +62,7 @@ public class UserController {
     }
 
     @PutMapping("/change-email")
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<Void> changeEmail(
             @AuthenticationPrincipal CustomUserDetails userDetails,
             @Valid @RequestBody UpdateEmailRequest request
@@ -63,6 +73,7 @@ public class UserController {
     }
 
     @GetMapping("/me")
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<UserDTO> getCurrentUser(
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
@@ -74,10 +85,35 @@ public class UserController {
 
     @GetMapping("/{userId}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Integer userId) {
         User user = userService.getUserById(userId)
                 .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, "User not found"));
         return ResponseEntity.status(HttpStatus.OK).body(userMapper.userToUserDTO(user));
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
+    @SecurityRequirement(name = "bearerAuth")
+    public ResponseEntity<Page<UserDTO>> getAllUsers(
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) Role role,
+            @RequestParam(required = false) UserStatus userStatus,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "createdAt,desc") String[] sort
+    ) {
+        List<Sort.Order> orders = new ArrayList<Sort.Order>();
+        if (sort[0].contains(",")) {
+            String[] _sort = sort[0].split(",");
+            orders.add(new Sort.Order(Sort.Direction.fromString(_sort[1]), _sort[0]));
+        } else {
+            orders.add(new Sort.Order(Sort.Direction.fromString(sort[1]), sort[0]));
+        }
+        Pageable pageable = PageRequest.of(page, size, Sort.by(orders));
+        Page<User> result = userService.getUsersByPage(keyword, role, userStatus, pageable);
+        Page<UserDTO> response = result.map(userMapper::userToUserDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
 

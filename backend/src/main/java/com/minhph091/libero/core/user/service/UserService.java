@@ -5,11 +5,15 @@ import com.minhph091.libero.common.enums.UserStatus;
 import com.minhph091.libero.core.user.dto.ChangePasswordRequest;
 import com.minhph091.libero.core.user.dto.UpdateUserRequest;
 import com.minhph091.libero.core.user.mapper.UserMapper;
+import com.minhph091.libero.core.user.repository.UserSpecification;
 import com.minhph091.libero.exception.ApiException;
 import com.minhph091.libero.core.user.dto.RegistrationRequest;
 import com.minhph091.libero.core.user.entity.User;
 import com.minhph091.libero.core.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -89,5 +93,13 @@ public class UserService {
     @Transactional(readOnly = true)
     public Optional<User> getUserById(Integer userId) {
         return userRepository.findById(userId);
+    }
+
+    public Page<User> getUsersByPage(String keyword, Role role, UserStatus userStatus, Pageable pageable) {
+        Specification<User> spec = Specification.where(UserSpecification.hasKeyword(keyword))
+                .and(UserSpecification.hasRole(role))
+                .and(UserSpecification.hasStatus(userStatus));
+        return userRepository.findAll(spec, pageable);
+
     }
 }

@@ -35,7 +35,8 @@ public class Book {
     @ManyToMany(fetch = FetchType.LAZY, cascade = {
             CascadeType.MERGE, CascadeType.PERSIST
     })
-    @JoinTable(name = "book_authors",
+    @JoinTable(
+            name = "book_authors",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
@@ -45,7 +46,8 @@ public class Book {
     @ManyToMany(fetch = FetchType.LAZY, cascade = {
             CascadeType.MERGE, CascadeType.PERSIST
     })
-    @JoinTable(name = "book_categories",
+    @JoinTable(
+            name = "book_categories",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
