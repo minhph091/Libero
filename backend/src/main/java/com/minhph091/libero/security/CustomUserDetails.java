@@ -1,7 +1,7 @@
 package com.minhph091.libero.security;
 
 import com.minhph091.libero.common.enums.Role;
-import com.minhph091.libero.core.user.enity.User;
+import com.minhph091.libero.core.user.entity.User;
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

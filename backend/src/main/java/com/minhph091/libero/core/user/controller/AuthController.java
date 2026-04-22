@@ -6,7 +6,7 @@ import com.minhph091.libero.security.JwtTokenProvider;
 import com.minhph091.libero.core.user.dto.AuthResponse;
 import com.minhph091.libero.core.user.dto.LoginRequest;
 import com.minhph091.libero.core.user.dto.UserDTO;
-import com.minhph091.libero.core.user.enity.User;
+import com.minhph091.libero.core.user.entity.User;
 import com.minhph091.libero.core.user.service.UserService;
 import jakarta.validation.Valid;
 import org.jspecify.annotations.NonNull;

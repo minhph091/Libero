@@ -1,7 +1,7 @@
 package com.minhph091.libero.core.user.dto;
 
 import com.minhph091.libero.common.enums.Gender;
-import com.minhph091.libero.core.user.enity.User;
+import com.minhph091.libero.core.user.entity.User;
 import jakarta.validation.constraints.*;
 import lombok.Builder;
 

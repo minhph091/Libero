@@ -1,6 +1,6 @@
 package com.minhph091.libero.core.user.repository;
 
-import com.minhph091.libero.core.user.enity.User;
+import com.minhph091.libero.core.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Integer> {

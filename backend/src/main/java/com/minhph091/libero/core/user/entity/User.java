@@ -1,4 +1,4 @@
-package com.minhph091.libero.core.user.enity;
+package com.minhph091.libero.core.user.entity;
 
 import com.minhph091.libero.common.enums.Gender;
 import com.minhph091.libero.common.enums.Role;

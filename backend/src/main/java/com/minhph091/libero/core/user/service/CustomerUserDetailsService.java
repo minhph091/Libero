@@ -1,7 +1,7 @@
 package com.minhph091.libero.core.user.service;
 
 import com.minhph091.libero.security.CustomUserDetails;
-import com.minhph091.libero.core.user.enity.User;
+import com.minhph091.libero.core.user.entity.User;
 import com.minhph091.libero.core.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
