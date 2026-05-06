@@ -95,6 +95,7 @@ public class UserService {
         return userRepository.findById(userId);
     }
 
+    @Transactional(readOnly = true)
     public Page<User> getUsersByPage(String keyword, Role role, UserStatus userStatus, Pageable pageable) {
         Specification<User> spec = Specification.where(UserSpecification.hasKeyword(keyword))
                 .and(UserSpecification.hasRole(role))
